@@ -1,6 +1,6 @@
 import React from 'react';
 import { Admin, Resource, Delete } from 'admin-on-rest';
-import { simpleRestClient, fetchUtils } from 'admin-on-rest';
+import { jsonServerRestClient, fetchUtils } from 'admin-on-rest';
 
 import { UserList, UserShow, UserEdit, UserCreate } from './Users';
 
