@@ -2,9 +2,9 @@
 
 targetFolder=${ARCHIVE_DIR:-"htdocs"}
 
-if [ -d htdocs/admin ]
+if [ -d "$targetFolder/admin" ]
 then
-	rm -rf htdocs/admin
+	rm -rf "$targetFolder/admin"
 fi
 
 cd src
@@ -15,6 +15,7 @@ cd ..
 
 if [ $returnCode -eq 0 ]
 then
+	mkdir -p "$targetFolder"
 	mv "src/build" "$targetFolder/admin"
 fi
 
