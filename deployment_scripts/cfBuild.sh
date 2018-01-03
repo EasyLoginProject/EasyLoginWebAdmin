@@ -1,10 +1,8 @@
 #!/bin/bash
 
-targetFolder=${ARCHIVE_DIR:-"htdocs"}
-
-if [ -d "$targetFolder/admin" ]
+if [ -d "htdocs/admin" ]
 then
-	rm -rf "$targetFolder/admin"
+	rm -rf "htdocs/admin"
 fi
 
 cd src
@@ -15,8 +13,14 @@ cd ..
 
 if [ $returnCode -eq 0 ]
 then
-	mkdir -p "$targetFolder"
-	mv "src/build" "$targetFolder/admin"
+	mkdir -p "htdocs"
+	mv "src/build" "htdocs/admin"
+fi
+
+if [ -n "${ARCHIVE_DIR}" ] 
+then
+	mkdir -p "${ARCHIVE_DIR}"
+	tar cvzf "${ARCHIVE_DIR}/EasyLoginWebAdmin.tgz" htdocs
 fi
 
 exit $returnCode
