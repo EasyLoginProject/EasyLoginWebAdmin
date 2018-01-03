@@ -1,5 +1,7 @@
 #!/bin/bash
 
+targetFolder=${ARCHIVE_DIR:-"htdocs"}
+
 if [ -d htdocs/admin ]
 then
 	rm -rf htdocs/admin
@@ -13,7 +15,7 @@ cd ..
 
 if [ $returnCode -eq 0 ]
 then
-	mv src/build htdocs/admin
+	mv "src/build" "$targetFolder/admin"
 fi
 
 exit $returnCode
