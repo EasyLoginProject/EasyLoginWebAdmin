@@ -1,14 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Admin, Resource, Delete } from 'admin-on-rest';
-import { jsonServerRestClient } from 'admin-on-rest';
+import { simpleRestClient, fetchUtils } from 'admin-on-rest';
 
-import { UserList, UserEdit, UserCreate } from './Users';
+import { UserList, UserShow, UserEdit, UserCreate } from './Users';
 
 import UserIcon from 'material-ui/svg-icons/social/person';
 
+const httpClient = (url, options = {}) => {
+  if (!options.headers) {
+      options.headers = new Headers({ Accept: 'application/json' });
+  }
+  const token = localStorage.getItem('token');
+  options.headers.set('Authorization', `Bearer ${token}`);
+  return fetchUtils.fetchJson(url, options);
+}
+
+//const restClient = simpleRestClient('http://127.0.0.1:8080/admapi', httpClient);
+const restClient = simpleRestClient('/admapi', httpClient);
+
 const App = () => (
-  <Admin title="EasyLogin" restClient={jsonServerRestClient('/admapi')}>
-      <Resource name="users" list={UserList} edit={UserEdit} create={UserCreate} remove={Delete} icon={UserIcon} />
+  <Admin title="EasyLogin" restClient={restClient}>
+      <Resource name="users" list={UserList} show={UserShow} edit={UserEdit} create={UserCreate} remove={Delete} icon={UserIcon} />
   </Admin>
 );
 
