@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Edit, Create, Filter, Datagrid, SimpleForm, TextInput, DisabledInput, TextField, NumberField, EmailField, EditButton } from 'admin-on-rest';
+import { List, Edit, Create, Filter, Show, SimpleShowLayout, Datagrid, SimpleForm, TextInput, DisabledInput, TextField, ShowButton, Responsive, SimpleList } from 'admin-on-rest';
 
 const UserFilter = (props) => (
     <Filter {...props}>
@@ -9,20 +9,46 @@ const UserFilter = (props) => (
 
 export const UserList = (props) => (
     <List {...props} filters={<UserFilter />}>
-        <Datagrid>
-            <TextField label="Shortname" source="shortname" />
-            <TextField label="User Principal Name" source="principalName" />
-            <TextField label="Given Name" source="givenName" />
-            <TextField label="Surname" source="surname" />
-            <TextField label="Full Name" source="fullName" />
-            <EditButton />
-        </Datagrid>
+    <Responsive
+            small={
+                <SimpleList
+                    primaryText={record => record.fullName}
+                    secondaryText={record => record.principalName}
+                    tertiaryText={record => record.shortname}
+                />
+            }
+            medium={
+                <Datagrid>
+                    <TextField label="Shortname" source="shortname" />
+                    <TextField label="User Principal Name" source="principalName" />
+                    <TextField label="Given Name" source="givenName" />
+                    <TextField label="Surname" source="surname" />
+                    <TextField label="Full Name" source="fullName" />
+                    <ShowButton />
+                </Datagrid>
+                }
+        />
     </List>
 );
 
 const UserTitle = ({ record }) => {
     return <span>User {record ? `"${record.fullName}"` : ''}</span>;
 };
+
+export const UserShow = (props) => (
+    <Show title={<UserTitle />} {...props}>
+        <SimpleShowLayout>
+            <TextField label="Given Name (First Name)" source="givenName" />
+            <TextField label="Surname (Last Name)" source="surname" />
+            <TextField label="Full Name (Display Name)" source="fullName" />
+            <TextField label="E-mail" source="email" type="email" />
+            <TextField label="Shortname (UNIX purpose)" source="shortname" />
+            <TextField label="User Principal Name" source="principalName" type="email" />
+            <TextField label="Record UUID" source="id" />
+            <TextField label="Record ID" source="numericID" />
+        </SimpleShowLayout>
+    </Show>
+);
 
 export const UserEdit = (props) => (
     <Edit title={<UserTitle />} {...props}>
@@ -35,7 +61,7 @@ export const UserEdit = (props) => (
             <TextInput label="User Principal Name" source="principalName" type="email" />
             <TextInput label="Password" source="clearTextPassword" type="password" />
             <DisabledInput label="Record UUID" source="id" />
-            <DisabledInput source="numericID" />
+            <DisabledInput label="Record ID" source="numericID" />
         </SimpleForm>
     </Edit>
 );
