@@ -2,8 +2,7 @@
 
 if [ -n "${ARCHIVE_DIR}" ] 
 then
-	tar xvzf "${ARCHIVE_DIR}/EasyLoginWebAdmin.tgz"
-	echo "${ARCHIVE_DIR}" >> .cfignore
+	mv "${ARCHIVE_DIR}/htdocs" htdocs
 fi
 
 if [ -n "${CF_APP}" ] 

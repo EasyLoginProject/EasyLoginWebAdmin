@@ -1,8 +1,5 @@
 #!/bin/bash
 
-pwd
-ls -l
-
 if [ -d "htdocs/admin" ]
 then
 	rm -rf "htdocs/admin"
@@ -23,10 +20,7 @@ fi
 if [ -n "${ARCHIVE_DIR}" ] 
 then
 	mkdir -p "${ARCHIVE_DIR}"
-	tar cvzf "${ARCHIVE_DIR}/EasyLoginWebAdmin.tgz" htdocs
+	mv htdocs "${ARCHIVE_DIR}/htdocs"
 fi
-
-pwd
-ls -l
 
 exit $returnCode
