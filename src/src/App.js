@@ -17,8 +17,8 @@ import UserGroupIcon from 'material-ui/svg-icons/social/group';
 //   return fetchUtils.fetchJson(url, options);
 // }
 
-const restClient = jsonServerRestClient('http://127.0.0.1:8080/admapi');
-// const restClient = jsonServerRestClient('/admapi');
+//const restClient = jsonServerRestClient('http://127.0.0.1:8080/admapi');
+const restClient = jsonServerRestClient('/admapi');
 
 const App = () => (
   <Admin title="EasyLogin" restClient={restClient}>
