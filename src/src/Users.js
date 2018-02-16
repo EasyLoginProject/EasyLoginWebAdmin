@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Edit, Create, Filter, Show, SimpleShowLayout, Datagrid, SimpleForm, TextInput, DisabledInput, TextField, ShowButton, Responsive, SimpleList } from 'admin-on-rest';
+import { List, Edit, Create, Filter, Show, SimpleShowLayout, Datagrid, SimpleForm, TextInput, DisabledInput, TextField, ShowButton, Responsive, SimpleList, ReferenceArrayField, ReferenceArrayInput, SelectArrayInput, SingleFieldList, ChipField } from 'admin-on-rest';
 
 const UserFilter = (props) => (
     <Filter {...props}>
@@ -44,6 +44,11 @@ export const UserShow = (props) => (
             <TextField label="E-mail" source="email" type="email" />
             <TextField label="Shortname (UNIX purpose)" source="shortname" />
             <TextField label="User Principal Name" source="principalName" type="email" />
+            <ReferenceArrayField label="Member of" reference="usergroups" source="memberOf">
+                <SingleFieldList>
+                    <ChipField source="commonName" />
+                </SingleFieldList>
+            </ReferenceArrayField>
             <TextField label="Record UUID" source="id" />
             <TextField label="Record ID" source="numericID" />
         </SimpleShowLayout>
@@ -60,6 +65,9 @@ export const UserEdit = (props) => (
             <TextInput label="Shortname (UNIX purpose)" source="shortname" />
             <TextInput label="User Principal Name" source="principalName" type="email" />
             <TextInput label="Password" source="clearTextPassword" type="password" />
+            <ReferenceArrayInput label="Member of" reference="usergroups" source="memberOf" allowEmpty>
+                 <SelectArrayInput optionText="commonName" />
+            </ReferenceArrayInput>
             <DisabledInput label="Record UUID" source="id" />
             <DisabledInput label="Record ID" source="numericID" />
         </SimpleForm>
@@ -69,13 +77,13 @@ export const UserEdit = (props) => (
 export const UserCreate = (props) => (
     <Create title="Create a User" {...props}>
         <SimpleForm>
-        <TextInput label="Given Name (First Name)" source="givenName" />
-        <TextInput label="Surname (Last Name)" source="surname" />
-        <TextInput label="Full Name (Display Name)" source="fullName" />
-        <TextInput label="E-mail" source="email" type="email" />
-        <TextInput label="Shortname (UNIX purpose)" source="shortname" />
-        <TextInput label="User Principal Name" source="principalName" type="email" />
-        <TextInput label="Password" source="clearTextPassword" type="password" />
+            <TextInput label="Given Name (First Name)" source="givenName" />
+            <TextInput label="Surname (Last Name)" source="surname" />
+            <TextInput label="Full Name (Display Name)" source="fullName" />
+            <TextInput label="E-mail" source="email" type="email" />
+            <TextInput label="Shortname (UNIX purpose)" source="shortname" />
+            <TextInput label="User Principal Name" source="principalName" type="email" />
+            <TextInput label="Password" source="clearTextPassword" type="password" />
         </SimpleForm>
     </Create>
 );
